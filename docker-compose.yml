@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  hibernate-demo-db:
+    container_name: hibernate-demo-db
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: hibernate-demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
