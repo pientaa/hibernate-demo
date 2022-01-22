@@ -10,5 +10,5 @@ class PostComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var review: String? = null
+    var review: String
 )

@@ -12,7 +12,7 @@ class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var title: String? = null,
+    var title: String,
     @OneToMany(cascade = [CascadeType.ALL])
     val comments: MutableList<PostComment> = mutableListOf()
 )

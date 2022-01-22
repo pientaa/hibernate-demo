@@ -12,21 +12,15 @@ class PostRepositoryTest(
 ) {
 
     @Test
-    fun foo() {
+    fun `save one post with three comments`() {
         val comments = mutableListOf(
-            PostComment(
-                review = "First review"
-            ),
-            PostComment(
-                review = "Second review"
-            ),
-            PostComment(
-                review = "Third review"
-            )
+            PostComment(review = "First review"),
+            PostComment(review = "Second review"),
+            PostComment(review = "Third review")
         )
 
         val post = Post(
-            title = "First posst",
+            title = "First post",
             comments = comments
         )
         postRepository.save(post)
