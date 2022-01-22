@@ -20,10 +20,7 @@ class PostServiceTest(
         PostComment(review = "Third review")
     )
 
-    private val post = Post(
-        title = "First post",
-        comments = comments
-    )
+    private val post = Post(title = "First post")
 
     @AfterEach
     fun cleanUp() {
@@ -34,11 +31,13 @@ class PostServiceTest(
 
     @Test
     fun `save one post with three comments`() {
+        comments.forEach { post.addComment(it) }
         postService.save(post)
     }
 
     @Test
     fun `save one post with three comments and delete one of the comments`() {
+        comments.forEach { post.addComment(it) }
         postService.save(post)
 
         logger.info("Post saved")
