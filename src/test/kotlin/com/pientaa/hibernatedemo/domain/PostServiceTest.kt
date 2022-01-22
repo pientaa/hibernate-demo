@@ -42,6 +42,6 @@ class PostServiceTest(
 
         logger.info("Post saved")
 
-        postService.save(post.apply { comments.removeAt(1) })
+        postService.save(post.apply { removeComment(comments.first()) })
     }
 }
