@@ -1,6 +1,7 @@
 package com.pientaa.hibernatedemo.repository
 
 import com.pientaa.hibernatedemo.entity.Post
+import com.pientaa.hibernatedemo.entity.PostComment
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -12,6 +13,22 @@ class PostRepositoryTest(
 
     @Test
     fun foo() {
-        postRepository.save(Post())
+        val comments = mutableListOf(
+            PostComment(
+                review = "First review"
+            ),
+            PostComment(
+                review = "Second review"
+            ),
+            PostComment(
+                review = "Third review"
+            )
+        )
+
+        val post = Post(
+            title = "First posst",
+            comments = comments
+        )
+        postRepository.save(post)
     }
 }
