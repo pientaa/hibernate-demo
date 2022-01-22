@@ -18,4 +18,10 @@ class PostService(
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun deleteAll() = postRepository.deleteAll()
+
+    @Transactional(readOnly = true)
+    fun getPostCommentsById(postId: Long): List<String> = postRepository.getById(postId).comments.map { it.review }
+
+    @Transactional(readOnly = true)
+    fun getPostTitleById(postId: Long): String = postRepository.getById(postId).title
 }
