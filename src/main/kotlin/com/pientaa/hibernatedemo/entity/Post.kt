@@ -1,5 +1,6 @@
 package com.pientaa.hibernatedemo.entity
 
+import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -12,6 +13,6 @@ class Post(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     var title: String? = null,
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.ALL])
     val comments: MutableList<PostComment> = mutableListOf()
 )
