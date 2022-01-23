@@ -32,9 +32,9 @@ class PostRepositoryTest(
         assertTrue(post in hashset)
     }
 
-//    @Test
-//    fun `toString test`() {
-//        postRepository.findByIdOrNull(1L)!!
-//            .toString()
-//    }
+    @Test
+    fun `toString test`() {
+        postRepository.findByIdOrNull(1L)!!
+            .toString()
+    }
 }
