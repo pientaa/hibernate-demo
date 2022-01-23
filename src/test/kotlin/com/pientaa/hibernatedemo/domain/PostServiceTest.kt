@@ -24,9 +24,9 @@ class PostServiceTest(
 
     @AfterEach
     fun cleanUp() {
-        logger.info("Clean up start")
-        postService.deleteAll()
-        logger.info("Clean up stop")
+        logger.info("AfterEach clean up start")
+        postService.deleteById(post.id!!)
+        logger.info("AfterEach clean up stop")
     }
 
     @Test
