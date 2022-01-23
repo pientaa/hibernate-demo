@@ -7,7 +7,7 @@ import javax.persistence.Id
 import javax.persistence.ManyToOne
 
 @Entity
-class PostComment(
+data class PostComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
