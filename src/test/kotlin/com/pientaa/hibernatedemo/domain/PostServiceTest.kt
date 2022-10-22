@@ -1,6 +1,7 @@
 package com.pientaa.hibernatedemo.domain
 
 import com.pientaa.hibernatedemo.entity.Post
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,5 +27,17 @@ class PostServiceTest(
                 logger.info(post.toString())
                 post.comments.forEach { logger.info(it.toString()) }
             }
+    }
+
+    @Transactional
+    @Test
+    fun `hashCode test`() {
+        val post = Post(title = "new post", content = "wow, such a content")
+
+        val hashSet = hashSetOf(post)
+
+        postService.save(post)
+
+        assertTrue(post in hashSet)
     }
 }
