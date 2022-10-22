@@ -14,23 +14,23 @@ import org.springframework.data.repository.findByIdOrNull
 class PostRepositoryTest(
     @Autowired private val postRepository: PostRepository,
 ) {
-
-    @Test
-    fun `fetch post data`() {
-        val post = postRepository.findByIdOrNull(1L)
-        assertTrue(post?.id != null)
-    }
-
-    @Test
-    fun `equals and hashCode test`() {
-        val post = Post(title = "Some random post")
-
-        val hashset = hashSetOf(post)
-
-        postRepository.save(post)
-
-        assertTrue(post in hashset)
-    }
+//
+//    @Test
+//    fun `fetch post data`() {
+//        val post = postRepository.findByIdOrNull(1L)
+//        assertTrue(post?.id != null)
+//    }
+//
+//    @Test
+//    fun `equals and hashCode test`() {
+//        val post = Post(title = "Some random post")
+//
+//        val hashset = hashSetOf(post)
+//
+//        postRepository.save(post)
+//
+//        assertTrue(post in hashset)
+//    }
 
 //    @Test
 //    fun `toString test`() {

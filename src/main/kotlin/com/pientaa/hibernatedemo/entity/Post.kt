@@ -13,6 +13,7 @@ data class Post(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     var title: String,
+    var content: String,
     @OneToMany(mappedBy = "post", cascade = [CascadeType.ALL], orphanRemoval = true)
     val comments: MutableSet<PostComment> = mutableSetOf()
 ) {

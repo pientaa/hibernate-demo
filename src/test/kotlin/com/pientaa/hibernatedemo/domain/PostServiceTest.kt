@@ -13,8 +13,8 @@ class PostServiceTest(
     private val logger = getLogger(javaClass)
 
     @Test
-    fun `add comments to a post`() {
-        val postId = postService.save(Post(title = "new post")).id!!
+    fun `get a post with all comments`() {
+        val postId: Long = postService.save(Post(title = "new post", content = "wow, such a content"))
 
         postService.addComment(comment = "such a great post!", postId = postId)
 
