@@ -1,7 +1,5 @@
 package com.pientaa.hibernatedemo.domain
 
-import com.pientaa.hibernatedemo.dto.CommentDto
-import com.pientaa.hibernatedemo.dto.PostDto
 import com.pientaa.hibernatedemo.entity.Post
 import com.pientaa.hibernatedemo.repository.PostRepository
 import org.springframework.stereotype.Service
