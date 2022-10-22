@@ -11,7 +11,7 @@ data class PostComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var review: String,
+    var content: String,
     @ManyToOne
-    var post: Post? = null
+    val post: Post
 )

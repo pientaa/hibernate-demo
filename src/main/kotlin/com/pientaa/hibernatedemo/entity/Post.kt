@@ -14,25 +14,15 @@ data class Post(
     var id: Long? = null,
     var title: String,
     @OneToMany(mappedBy = "post", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val comments: MutableList<PostComment> = mutableListOf()
+    val comments: MutableSet<PostComment> = mutableSetOf()
 ) {
-    fun addComment(comment: PostComment) {
-        comments.add(comment)
-        comment.post = this
+    fun addComment(comment: String) {
+        comments.add(PostComment(content = comment, post = this))
     }
 
-    fun removeComment(comment: PostComment) {
-        comments.remove(comment)
-        comment.post = null
+    fun removeComment(commentId: Long) {
+        comments.removeIf {
+            it.id == commentId
+        }
     }
-
-//    override fun equals(other: Any?): Boolean {
-//        if (this === other) return true
-//        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-//        other as Post
-//
-//        return id != null && id == other.id
-//    }
-//
-//    override fun hashCode(): Int = javaClass.hashCode()
 }

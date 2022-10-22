@@ -1,8 +1,6 @@
 package com.pientaa.hibernatedemo.domain
 
 import com.pientaa.hibernatedemo.entity.Post
-import com.pientaa.hibernatedemo.entity.PostComment
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,34 +12,13 @@ class PostServiceTest(
 ) {
     private val logger = getLogger(javaClass)
 
-    private val comments = mutableListOf(
-        PostComment(review = "First review"),
-        PostComment(review = "Second review"),
-        PostComment(review = "Third review")
-    )
-
-    private val post = Post(title = "First post")
-
-    @AfterEach
-    fun cleanUp() {
-        logger.info("AfterEach clean up start")
-        postService.deleteById(post.id!!)
-        logger.info("AfterEach clean up stop")
-    }
-
     @Test
-    fun `save one post with three comments`() {
-        comments.forEach { post.addComment(it) }
-        postService.save(post)
-    }
+    fun `add comments to a post`() {
+        val postId = postService.save(Post(title = "new post")).id!!
 
-    @Test
-    fun `save one post with three comments and delete one of the comments`() {
-        comments.forEach { post.addComment(it) }
-        postService.save(post)
+        postService.addComment(comment = "such a great post!", postId = postId)
 
-        logger.info("Post saved")
-
-        postService.save(post.apply { removeComment(comments.first()) })
+        postService.getPostWithComments(postId = postId)
+            .let { logger.info(it.toString()) }
     }
 }
