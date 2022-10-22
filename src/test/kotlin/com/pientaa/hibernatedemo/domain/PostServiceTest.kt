@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 class PostServiceTest(
@@ -12,6 +13,7 @@ class PostServiceTest(
 ) {
     private val logger = getLogger(javaClass)
 
+    @Transactional
     @Test
     fun `get a post with all comments`() {
         val postId: Long = postService.save(Post(title = "new post", content = "wow, such a content"))

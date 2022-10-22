@@ -1,5 +1,7 @@
 package com.pientaa.hibernatedemo.domain
 
+import com.pientaa.hibernatedemo.dto.CommentDto
+import com.pientaa.hibernatedemo.dto.PostDto
 import com.pientaa.hibernatedemo.entity.Post
 import com.pientaa.hibernatedemo.repository.PostRepository
 import org.springframework.stereotype.Service
@@ -27,6 +29,5 @@ class PostService(
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun deleteById(postId: Long) = postRepository.deleteById(postId)
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     fun getPostWithComments(postId: Long): Post = postRepository.getReferenceById(postId)
 }

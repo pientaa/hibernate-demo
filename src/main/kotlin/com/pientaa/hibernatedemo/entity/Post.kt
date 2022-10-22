@@ -18,7 +18,9 @@ data class Post(
     val comments: MutableSet<PostComment> = mutableSetOf()
 ) {
     fun addComment(comment: String) {
-        comments.add(PostComment(content = comment, post = this))
+        comments.add(
+            PostComment(content = comment, post = this)
+        )
     }
 
     fun removeComment(commentId: Long) {
