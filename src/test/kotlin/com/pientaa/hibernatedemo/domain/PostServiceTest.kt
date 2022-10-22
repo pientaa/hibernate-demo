@@ -17,7 +17,9 @@ class PostServiceTest(
     @Transactional
     @Test
     fun `get a post with all comments`() {
-        val postId: Long = postService.save(Post(title = "new post", content = "wow, such a content"))
+        val postId: Long = postService.save(
+            Post(title = "new post", content = "wow, such a content")
+        )
 
         postService.addComment(comment = "such a great post!", postId = postId)
         postService.addComment(comment = "nah, nothing special at all", postId = postId)
