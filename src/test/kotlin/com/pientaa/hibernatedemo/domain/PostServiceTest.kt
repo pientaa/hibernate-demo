@@ -19,8 +19,12 @@ class PostServiceTest(
         val postId: Long = postService.save(Post(title = "new post", content = "wow, such a content"))
 
         postService.addComment(comment = "such a great post!", postId = postId)
+        postService.addComment(comment = "nah, nothing special at all", postId = postId)
 
         postService.getPostWithComments(postId = postId)
-            .let { logger.info(it.toString()) }
+            .let { post ->
+                logger.info(post.toString())
+                post.comments.forEach { logger.info(it.toString()) }
+            }
     }
 }
