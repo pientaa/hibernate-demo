@@ -16,19 +16,13 @@ class PostServiceTest(
 
     @Transactional
     @Test
-    fun `get a post with all comments`() {
+    fun `add a post with 2 comments`() {
         val postId: Long = postService.save(
             Post(title = "new post", content = "wow, such a content")
         )
 
         postService.addComment(comment = "such a great post!", postId = postId)
         postService.addComment(comment = "nah, nothing special at all", postId = postId)
-
-        postService.getPostWithComments(postId = postId)
-            .let { post ->
-                logger.info(post.toString())
-                post.comments.forEach { logger.info(it.toString()) }
-            }
     }
 
     @Transactional
