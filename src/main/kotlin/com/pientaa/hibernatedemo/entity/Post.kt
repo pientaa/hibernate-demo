@@ -22,10 +22,4 @@ data class Post(
             PostComment(content = comment, post = this)
         )
     }
-
-    fun removeComment(commentId: Long) {
-        comments.removeIf {
-            it.id == commentId
-        }
-    }
 }

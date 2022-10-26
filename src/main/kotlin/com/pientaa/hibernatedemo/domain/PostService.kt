@@ -11,17 +11,12 @@ class PostService(
     private val postRepository: PostRepository
 ) {
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun save(post: Post) = postRepository.save(post).id!! //should be some custom exception thrown instead
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun addComment(comment: String, postId: Long) {
         postRepository.getReferenceById(postId)
             .apply { addComment(comment) }
-            .let { postRepository.save(it) }
     }
-
-    fun deleteAll() = postRepository.deleteAll()
-
-    fun deleteById(postId: Long) = postRepository.deleteById(postId)
-
-    fun getPostWithComments(postId: Long): Post = postRepository.getReferenceById(postId)
 }
