@@ -1,8 +1,7 @@
 package com.pientaa.hibernatedemo.domain
 
 import com.pientaa.hibernatedemo.entity.Post
-import com.pientaa.hibernatedemo.entity.PostComment
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,34 +13,24 @@ class PostServiceTest(
 ) {
     private val logger = getLogger(javaClass)
 
-    private val comments = mutableListOf(
-        PostComment(review = "First review"),
-        PostComment(review = "Second review"),
-        PostComment(review = "Third review")
-    )
+    @Test
+    fun `add a post with 2 comments`() {
+        val postId: Long = postService.save(
+            Post(title = "new post", content = "wow, such a content")
+        )
 
-    private val post = Post(title = "First post")
-
-    @AfterEach
-    fun cleanUp() {
-        logger.info("AfterEach clean up start")
-        postService.deleteById(post.id!!)
-        logger.info("AfterEach clean up stop")
+        postService.addComment(comment = "such a great post!", postId = postId)
+        postService.addComment(comment = "nah, nothing special at all", postId = postId)
     }
 
     @Test
-    fun `save one post with three comments`() {
-        comments.forEach { post.addComment(it) }
-        postService.save(post)
-    }
+    fun `hashCode test`() {
+        val post = Post(title = "new post", content = "wow, such a content")
 
-    @Test
-    fun `save one post with three comments and delete one of the comments`() {
-        comments.forEach { post.addComment(it) }
+        val hashSet = hashSetOf(post)
+
         postService.save(post)
 
-        logger.info("Post saved")
-
-        postService.save(post.apply { removeComment(comments.first()) })
+        assertTrue(post in hashSet)
     }
 }

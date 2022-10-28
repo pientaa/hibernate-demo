@@ -12,11 +12,10 @@ data class PostComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var review: String,
-) {
+    var content: String,
     @ManyToOne
-    lateinit var post: Post
-
+    val post: Post
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
@@ -26,4 +25,9 @@ data class PostComment(
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id , content = $content , post = $post )"
+    }
 }

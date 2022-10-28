@@ -13,18 +13,15 @@ data class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var title: String
-) {
+    var title: String,
+    var content: String,
     @OneToMany(mappedBy = "post", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var comments: MutableList<PostComment> = mutableListOf()
-
-    fun addComment(comment: PostComment) {
-        comments.add(comment)
-        comment.post = this
-    }
-
-    fun removeComment(comment: PostComment) {
-        comments.remove(comment)
+    val comments: MutableSet<PostComment> = mutableSetOf()
+) {
+    fun addComment(comment: String) {
+        comments.add(
+            PostComment(content = comment, post = this)
+        )
     }
 
     override fun equals(other: Any?): Boolean {
@@ -36,4 +33,9 @@ data class Post(
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id , title = $title , content = $content )"
+    }
 }
