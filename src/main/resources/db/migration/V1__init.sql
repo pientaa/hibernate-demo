@@ -1,5 +1,5 @@
 drop table if exists post cascade;
-create table post_entity
+create table post
 (
     id      bigserial
         primary key,
