@@ -1,30 +1,57 @@
 package com.pientaa.hibernatedemo
 
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
-import org.springframework.beans.factory.annotation.Autowired
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
+import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
+@ActiveProfiles("test")
 class PostEntityTest(
-    @Autowired private val postRepository: PostRepository
-) {
+    private val postRepository: PostRepository
+) : AnnotationSpec() {
+
     @Test
-    fun `post create test`() {
-        PostEntity(title = "new post", content = "wow, such a content")
-            .let { postRepository.save(it) }
+    fun `create post`() {
+        postRepository.save(PostEntity(title = "Title", content = "Content")).id shouldNotBe null
     }
 
     @Test
-    fun `post get test`() {
-        assertNotNull(postRepository.getReferenceById(1).content)
+    fun `get post`() {
+        // Given
+        val postId = postRepository.save(PostEntity(title = "Title", content = "Content")).id!!
+
+        // When
+        val postEntity = postRepository.getReferenceById(postId)
+
+        // Then
+        postEntity.title shouldBe "Title"
     }
 
     @Test
-    fun `post delete test`() {
-        postRepository.deleteById(1)
-        assertThrows<JpaObjectRetrievalFailureException> { postRepository.getReferenceById(1) }
+    fun `update post`() {
+        // Given
+        val postId = postRepository.save(PostEntity(title = "Title", content = "Content")).id!!
+
+        // When
+        val postEntity = postRepository.save(PostEntity(id = postId, title = "Updated", content = "Updated"))
+
+        // Then
+        postEntity.title shouldBe "Updated"
+    }
+
+    @Test
+    fun `delete post`() {
+        // Given
+        val postId = postRepository.save(PostEntity(title = "Title", content = "Content")).id!!
+
+        // When
+        postRepository.deleteById(postId)
+
+        // Then
+        shouldThrow<JpaObjectRetrievalFailureException> { postRepository.getReferenceById(postId) }
     }
 }
