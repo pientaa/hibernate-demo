@@ -8,7 +8,7 @@ import jakarta.persistence.ManyToOne
 import org.hibernate.Hibernate
 
 @Entity
-data class PostComment(
+class PostComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,

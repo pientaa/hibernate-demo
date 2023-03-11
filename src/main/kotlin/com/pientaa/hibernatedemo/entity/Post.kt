@@ -9,7 +9,7 @@ import jakarta.persistence.OneToMany
 import org.hibernate.Hibernate
 
 @Entity
-data class Post(
+class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
