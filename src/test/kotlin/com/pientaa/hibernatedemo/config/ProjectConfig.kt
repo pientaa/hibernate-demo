@@ -10,6 +10,8 @@ import io.kotest.core.test.TestResult
 import io.kotest.extensions.spring.SpringExtension
 import io.kotest.extensions.spring.SpringTestExtension
 import io.kotest.extensions.spring.SpringTestLifecycleMode
+import java.io.File
+import java.sql.Connection
 
 internal object TestContainersProjectConfig : AbstractProjectConfig() {
     override fun extensions(): List<Extension> =
@@ -29,10 +31,21 @@ object TestContainerListener : TestListener {
 }
 
 object DatabaseCleanUpListener : TestListener {
+    val connection = TestContainersUtil.testFlyway.configuration.dataSource.connection
     override suspend fun afterTest(testCase: TestCase, result: TestResult) {
-        val connection = TestContainersUtil.testFlyway.configuration.dataSource.connection
-        connection.createStatement().execute(
-            """
+        clearAllTables(connection)
+        super.afterTest(testCase, result)
+    }
+
+    override suspend fun beforeTest(testCase: TestCase) {
+        super.beforeTest(testCase)
+        runImportSql(connection)
+    }
+}
+
+private fun clearAllTables(connection: Connection) {
+    connection.createStatement().execute(
+        """
                 DO LANGUAGE plpgsql ${'$'}${'$'}
                     DECLARE statements CURSOR FOR SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
                     BEGIN
@@ -41,7 +54,10 @@ object DatabaseCleanUpListener : TestListener {
                             END LOOP;
                     END ${'$'}${'$'};
             """.trimIndent()
-        )
-        super.afterTest(testCase, result)
-    }
+    )
+}
+
+private fun runImportSql(connection: Connection) {
+    connection.createStatement()
+        .execute(File("src/main/resources/import.sql").readText())
 }
