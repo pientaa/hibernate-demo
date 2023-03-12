@@ -19,14 +19,13 @@ class PostEntityTest(
 
     @Test
     fun `create post`() {
-        val author =
-            postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id shouldNotBe null
+        postRepository.save(post).id shouldNotBe null
     }
 
     @Test
     fun `get post`() {
         // Given
-        val postId = postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id!!
+        val postId = postRepository.save(post).id!!
 
         // When
         val postEntity = postRepository.getReferenceById(postId)
@@ -38,11 +37,10 @@ class PostEntityTest(
     @Test
     fun `update post`() {
         // Given
-        val postId = postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id!!
+        postRepository.save(post).id!!
 
         // When
-        val postEntity =
-            postRepository.save(PostEntity(id = postId, title = "Updated", content = "Updated", author = author))
+        val postEntity = postRepository.save(post.apply { title = "Updated"; content = "Updated" })
 
         // Then
         postEntity.title shouldBe "Updated"
@@ -51,7 +49,7 @@ class PostEntityTest(
     @Test
     fun `delete post`() {
         // Given
-        val postId = postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id!!
+        val postId = postRepository.save(post).id!!
 
         // When
         postRepository.deleteById(postId)
@@ -60,6 +58,8 @@ class PostEntityTest(
         shouldThrow<JpaObjectRetrievalFailureException> { postRepository.getReferenceById(postId) }
     }
 
+    private val post: PostEntity
+        get() = PostEntity(title = "Title", content = "Content", author = author)
     private val author: AuthorEntity
         get() = authorRepository.getReferenceById(1)
 }
