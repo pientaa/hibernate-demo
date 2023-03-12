@@ -1,22 +1,18 @@
 package com.pientaa.hibernatedemo.author
 
-import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "author")
-class AuthorEntity(
+@Table(name = "contact_info")
+class ContactInfoEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var firstName: String,
-    var lastName: String,
-
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
-    val contactInfo: ContactInfoEntity
+    var address: String,
+    var phone: String,
+    var email: String,
 )
