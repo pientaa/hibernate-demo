@@ -1,21 +1,17 @@
-package com.pientaa.hibernatedemo
+package com.pientaa.hibernatedemo.author
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "post")
-class PostEntity(
+@Table(name = "author")
+class AuthorEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var title: String,
-    var content: String,
-
-    @ManyToOne
-    val author: AuthorEntity
+    var firstName: String,
+    var lastName: String,
 )

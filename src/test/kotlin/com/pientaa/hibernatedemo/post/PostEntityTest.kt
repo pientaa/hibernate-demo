@@ -1,5 +1,7 @@
-package com.pientaa.hibernatedemo
+package com.pientaa.hibernatedemo.post
 
+import com.pientaa.hibernatedemo.author.AuthorEntity
+import com.pientaa.hibernatedemo.author.AuthorRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
@@ -11,7 +13,8 @@ import org.springframework.test.context.ActiveProfiles
 @SpringBootTest
 @ActiveProfiles("test")
 class PostEntityTest(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val authorRepository: AuthorRepository,
 ) : AnnotationSpec() {
 
     @Test
@@ -57,5 +60,6 @@ class PostEntityTest(
         shouldThrow<JpaObjectRetrievalFailureException> { postRepository.getReferenceById(postId) }
     }
 
-    private val author: AuthorEntity = AuthorEntity(firstName = "Jan", lastName = "Nowak")
+    private val author: AuthorEntity
+        get() = authorRepository.getReferenceById(1)
 }
