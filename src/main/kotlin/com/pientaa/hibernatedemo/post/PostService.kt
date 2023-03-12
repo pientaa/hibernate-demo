@@ -1,4 +1,4 @@
-package com.pientaa.hibernatedemo
+package com.pientaa.hibernatedemo.post
 
 import org.springframework.stereotype.Service
 
