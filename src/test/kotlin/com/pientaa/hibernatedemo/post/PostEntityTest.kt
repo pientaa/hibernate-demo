@@ -44,6 +44,7 @@ class PostEntityTest(
 
         // Then
         postEntity.title shouldBe "Updated"
+        postEntity.author.contactInfo.phone shouldNotBe null
     }
 
     @Test

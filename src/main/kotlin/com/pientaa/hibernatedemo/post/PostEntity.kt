@@ -17,6 +17,6 @@ class PostEntity(
     var title: String,
     var content: String,
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     val author: AuthorEntity
 )
