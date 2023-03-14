@@ -37,10 +37,10 @@ class PostEntityTest(
     @Test
     fun `update post`() {
         // Given
-        postRepository.save(post).id!!
+        val postEntity = postRepository.save(post)
 
         // When
-        val postEntity = postRepository.save(post.apply { title = "Updated"; content = "Updated" })
+        postRepository.save(postEntity.apply { title = "Updated"; content = "Updated" })
 
         // Then
         postEntity.title shouldBe "Updated"
