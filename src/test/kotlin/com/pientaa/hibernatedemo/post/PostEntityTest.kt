@@ -18,6 +18,11 @@ class PostEntityTest(
 ) : AnnotationSpec() {
 
     @Test
+    fun `create multiple post`() {
+        List(10) { postRepository.save(post).id }.distinct().size shouldBe 10
+    }
+
+    @Test
     fun `create post`() {
         postRepository.save(post).id shouldNotBe null
     }
