@@ -1,11 +1,10 @@
 package com.pientaa.hibernatedemo.author
 
-import jakarta.persistence.CascadeType
+import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 
 @Entity
@@ -17,6 +16,6 @@ class AuthorEntity(
     var firstName: String,
     var lastName: String,
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, optional = false)
-    val contactInfo: ContactInfoEntity
+    @Embedded
+    val contactInfo: ContactInfo
 )
