@@ -4,3 +4,9 @@ spring:
     url: jdbc:tc:postgresql:12:///test_db
     username: test_user
     password: test_password
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          # import.sql is configured manually via DatabaseCleanUpListener
+          import_files:
