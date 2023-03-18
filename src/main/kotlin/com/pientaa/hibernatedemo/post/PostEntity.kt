@@ -1,5 +1,6 @@
-package com.pientaa.hibernatedemo
+package com.pientaa.hibernatedemo.post
 
+import com.pientaa.hibernatedemo.author.AuthorEntity
 import jakarta.persistence.*
 
 @Entity
