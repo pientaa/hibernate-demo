@@ -9,9 +9,11 @@ class PostEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
+    @Column(nullable = false)
     var title: String,
+    @Column(nullable = false)
     var content: String,
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     val author: AuthorEntity
 )
