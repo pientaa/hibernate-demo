@@ -2,7 +2,6 @@ package com.pientaa.hibernatedemo.post
 
 import com.pientaa.hibernatedemo.author.AuthorEntity
 import com.pientaa.hibernatedemo.author.AuthorRepository
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
