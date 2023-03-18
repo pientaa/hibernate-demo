@@ -3,14 +3,11 @@ package com.pientaa.hibernatedemo
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "post")
-class PostEntity(
+@Table(name = "author")
+class AuthorEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var title: String,
-    var content: String,
-
-    @OneToOne
-    val author: AuthorEntity
+    var firstName: String,
+    var lastName: String,
 )

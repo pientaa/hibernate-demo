@@ -17,13 +17,13 @@ class PostEntityTest(
 
     @Test
     fun `create post`() {
-        postRepository.save(PostEntity(title = "Title", content = "Content")).id shouldNotBe null
+        postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id shouldNotBe null
     }
 
     @Test
     fun `get post`() {
         // Given
-        val postId = postRepository.save(PostEntity(title = "Title", content = "Content")).id!!
+        val postId = postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id!!
 
         // When
         val postEntity = postRepository.findByIdOrNull(postId)!!
@@ -35,10 +35,11 @@ class PostEntityTest(
     @Test
     fun `update post`() {
         // Given
-        val postId = postRepository.save(PostEntity(title = "Title", content = "Content")).id!!
+        val postId = postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id!!
 
         // When
-        val postEntity = postRepository.save(PostEntity(id = postId, title = "Updated", content = "Updated"))
+        val postEntity =
+            postRepository.save(PostEntity(id = postId, title = "Updated", content = "Updated", author = author))
 
         // Then
         postEntity.title shouldBe "Updated"
@@ -47,7 +48,7 @@ class PostEntityTest(
     @Test
     fun `delete post`() {
         // Given
-        val postId = postRepository.save(PostEntity(title = "Title", content = "Content")).id!!
+        val postId = postRepository.save(PostEntity(title = "Title", content = "Content", author = author)).id!!
 
         // When
         postRepository.deleteById(postId)
@@ -55,4 +56,6 @@ class PostEntityTest(
         // Then
         postRepository.findByIdOrNull(postId) shouldBe null
     }
+
+    private val author: AuthorEntity = AuthorEntity(firstName = "Jan", lastName = "Nowak")
 }
