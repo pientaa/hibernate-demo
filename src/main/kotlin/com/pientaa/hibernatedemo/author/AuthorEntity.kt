@@ -10,4 +10,7 @@ class AuthorEntity(
     var id: Long? = null,
     var firstName: String,
     var lastName: String,
+
+    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
+    val contactInfo: ContactInfoEntity
 )
