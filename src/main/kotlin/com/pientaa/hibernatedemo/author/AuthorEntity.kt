@@ -13,6 +13,6 @@ class AuthorEntity(
     @Column(nullable = false)
     var lastName: String,
 
-    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, optional = false)
-    var contactInfo: ContactInfoEntity
+    @Embedded
+    var contactInfo: ContactInfo
 )
