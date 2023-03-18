@@ -2,12 +2,11 @@ package com.pientaa.hibernatedemo.post
 
 import com.pientaa.hibernatedemo.author.AuthorEntity
 import com.pientaa.hibernatedemo.author.AuthorRepository
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
@@ -28,7 +27,7 @@ class PostEntityTest(
         val postId = postRepository.save(post).id!!
 
         // When
-        val postEntity = postRepository.getReferenceById(postId)
+        val postEntity = postRepository.findByIdOrNull(postId)!!
 
         // Then
         postEntity.title shouldBe "Title"
@@ -55,7 +54,7 @@ class PostEntityTest(
         postRepository.deleteById(postId)
 
         // Then
-        shouldThrow<JpaObjectRetrievalFailureException> { postRepository.getReferenceById(postId) }
+        postRepository.findByIdOrNull(postId) shouldBe null
     }
 
     private val post: PostEntity
