@@ -52,7 +52,7 @@ class AuthorEntityTest(
         val updatedAuthorEntity = authorRepository.save(authorEntity.apply { contactInfo = updatedContactInfo })
 
         // Then
-        updatedAuthorEntity.contactInfo.id shouldNotBe oldContactInfo.id
+        updatedAuthorEntity.contactInfo shouldNotBe oldContactInfo
     }
 
     @Test
@@ -70,13 +70,9 @@ class AuthorEntityTest(
     private val author: AuthorEntity
         get() = AuthorEntity(firstName = "John", lastName = "Smith", contactInfo = contactInfo)
 
-    private val contactInfo: ContactInfoEntity
-        get() = ContactInfoEntity(address = "Test 1/1 12-345 Poznań", email = "test@test.pl", phone = "+48 512 345 678")
+    private val contactInfo: ContactInfo
+        get() = ContactInfo(address = "Test 1/1 12-345 Poznań", email = "test@test.pl", phone = "+48 512 345 678")
 
-    private val updatedContactInfo: ContactInfoEntity
-        get() = ContactInfoEntity(
-            address = "Test 1/1 12-345 Poznań",
-            email = "updated@test.pl",
-            phone = "+48 512 345 678"
-        )
+    private val updatedContactInfo: ContactInfo
+        get() = contactInfo.copy(email = "updated@test.pl")
 }
