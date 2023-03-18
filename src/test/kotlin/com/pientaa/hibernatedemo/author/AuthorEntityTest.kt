@@ -43,6 +43,19 @@ class AuthorEntityTest(
     }
 
     @Test
+    fun `update author, replace ContactInfo with another one`() {
+        // Given
+        val authorEntity = authorRepository.save(author)
+        val oldContactInfo = authorEntity.contactInfo
+
+        // When
+        val updatedAuthorEntity = authorRepository.save(authorEntity.apply { contactInfo = updatedContactInfo })
+
+        // Then
+        updatedAuthorEntity.contactInfo.id shouldNotBe oldContactInfo.id
+    }
+
+    @Test
     fun `delete author`() {
         // Given
         val authorId = authorRepository.save(author).id!!
@@ -59,4 +72,11 @@ class AuthorEntityTest(
 
     private val contactInfo: ContactInfoEntity
         get() = ContactInfoEntity(address = "Test 1/1 12-345 Poznań", email = "test@test.pl", phone = "+48 512 345 678")
+
+    private val updatedContactInfo: ContactInfoEntity
+        get() = ContactInfoEntity(
+            address = "Test 1/1 12-345 Poznań",
+            email = "updated@test.pl",
+            phone = "+48 512 345 678"
+        )
 }
