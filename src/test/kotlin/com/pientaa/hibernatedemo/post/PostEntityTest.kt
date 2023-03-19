@@ -11,6 +11,7 @@ import org.hibernate.LazyInitializationException
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -31,6 +32,7 @@ class PostEntityTest(
     }
 
     @Test
+    @Transactional
     fun `create a post with 3 comments`() {
         val post = post.apply {
             addComment("First comment", author)
@@ -44,22 +46,25 @@ class PostEntityTest(
 
     @Test
     fun `delete one of 3 existing comments`() {
-        // Given
-        val post = post.apply {
-            addComment("First comment", author)
-            addComment("Second comment", author)
-            addComment("Third comment", author)
+        //running inside transaction to avoid SELECT before DELETE after removeComment and postRepository.save
+        transaction {
+            // Given
+            val post = post.apply {
+                addComment("First comment", author)
+                addComment("Second comment", author)
+                addComment("Third comment", author)
+            }
+                .let { postRepository.save(it) }
+
+            // When
+            val lastCommentId = post.comments.last().id!!
+
+            post.removeComment(lastCommentId)
+            postRepository.save(post)
+
+            // Then
+            post.comments.size shouldBe 2
         }
-            .let { postRepository.save(it) }
-
-        // When
-        val lastCommentId = post.comments.last().id!!
-
-        post.removeComment(lastCommentId)
-        postRepository.save(post)
-
-        // Then
-        post.comments.size shouldBe 2
     }
 
     @Test
@@ -146,7 +151,7 @@ class PostEntityTest(
     }
 
     private val post: PostEntity
-        get() = PostEntity(title = "Title", content = "Content", author = author, comments = mutableListOf())
+        get() = PostEntity(title = "Title", content = "Content", author = author, comments = mutableSetOf())
     private val author: AuthorEntity
         get() = authorRepository.findByIdOrNull(1)!!
 
