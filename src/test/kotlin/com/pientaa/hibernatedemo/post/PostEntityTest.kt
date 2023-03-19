@@ -3,9 +3,11 @@ package com.pientaa.hibernatedemo.post
 import com.pientaa.hibernatedemo.author.AuthorEntity
 import com.pientaa.hibernatedemo.author.AuthorRepository
 import com.pientaa.hibernatedemo.util.TransactionProvider
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import org.hibernate.LazyInitializationException
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ActiveProfiles
@@ -21,12 +23,76 @@ class PostEntityTest(
     @Test
     fun `create multiple post`() {
         List(10) { postRepository.save(post).id }.distinct().size shouldBe 10
-        println("foo")
     }
 
     @Test
     fun `create post`() {
         postRepository.save(post).id shouldNotBe null
+    }
+
+    @Test
+    fun `create a post with 3 comments`() {
+        val post = post.apply {
+            addComment("First comment", author)
+            addComment("Second comment", author)
+            addComment("Third comment", author)
+        }
+            .let { postRepository.save(it) }
+
+        post.comments.size shouldBe 3
+    }
+
+    @Test
+    fun `delete one of 3 existing comments`() {
+        // Given
+        val post = post.apply {
+            addComment("First comment", author)
+            addComment("Second comment", author)
+            addComment("Third comment", author)
+        }
+            .let { postRepository.save(it) }
+
+        // When
+        val lastCommentId = post.comments.last().id!!
+
+        post.removeComment(lastCommentId)
+        postRepository.save(post)
+
+        // Then
+        post.comments.size shouldBe 2
+    }
+
+    @Test
+    fun `lazy init test, exception should be thrown`() {
+        // Given
+        val postId = post.apply {
+            addComment("First comment", author)
+            addComment("Second comment", author)
+            addComment("Third comment", author)
+        }
+            .let { postRepository.save(it) }.id
+
+        // When & Then
+        val post = postRepository.findByIdOrNull(postId)!!
+        shouldThrow<LazyInitializationException> { post.comments.size }
+    }
+
+    @Test
+    fun `lazy init test, no exception should be thrown`() {
+        // Given
+        val postId = post.apply {
+            addComment("First comment", author)
+            addComment("Second comment", author)
+            addComment("Third comment", author)
+        }
+            .let { postRepository.save(it) }.id
+
+        // When & Then
+        transaction(readOnly = true) {
+            val post = postRepository.findByIdOrNull(postId)!!
+
+            post.comments.size shouldBe 3
+        }
     }
 
     @Test
@@ -80,7 +146,7 @@ class PostEntityTest(
     }
 
     private val post: PostEntity
-        get() = PostEntity(title = "Title", content = "Content", author = author)
+        get() = PostEntity(title = "Title", content = "Content", author = author, comments = mutableListOf())
     private val author: AuthorEntity
         get() = authorRepository.findByIdOrNull(1)!!
 
