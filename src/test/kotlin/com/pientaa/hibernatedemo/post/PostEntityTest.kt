@@ -123,12 +123,10 @@ class PostEntityTest(
             .let { postRepository.save(it) }.id!!
 
         // When
-        transaction(readOnly = true) {
-            val dto = postRepository.postCommentDto(postId)
+        val dto = postRepository.postCommentDto(postId)
 
-            // Then
-            dto.size shouldBe 3
-        }
+        // Then
+        dto.size shouldBe 3
     }
 
 
