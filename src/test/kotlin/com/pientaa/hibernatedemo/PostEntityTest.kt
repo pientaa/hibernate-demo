@@ -1,12 +1,10 @@
 package com.pientaa.hibernatedemo
 
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
 import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
