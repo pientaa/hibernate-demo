@@ -14,6 +14,19 @@ class PostEntity(
     @Column(nullable = false)
     var content: String,
 
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    val comments: MutableList<PostCommentEntity>,
+
     @ManyToOne(optional = false)
     val author: AuthorEntity
-)
+) {
+    fun addComment(content: String, author: AuthorEntity) {
+        this.comments.add(
+            PostCommentEntity(content = content, author = author)
+        )
+    }
+
+    fun removeComment(commentId: Long) {
+        this.comments.removeIf { it.id == commentId }
+    }
+}
