@@ -13,5 +13,8 @@ class PostCommentEntity(
     var content: String,
 
     @ManyToOne(optional = false)
-    val author: AuthorEntity
+    val author: AuthorEntity,
+
+    @ManyToOne(optional = false)
+    val post: PostEntity
 )
