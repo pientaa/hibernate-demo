@@ -111,6 +111,24 @@ class PostEntityTest(
     }
 
     @Test
+    fun `get post, dto-based projection`() {
+        // Given
+        val postId = post.apply {
+            addComment("First comment", author)
+            addComment("Second comment", author)
+            addComment("Third comment", author)
+        }
+            .let { postRepository.save(it) }.id!!
+
+        // When
+        val dto = postRepository.postCommentDto(postId)
+
+        // Then
+        dto.size shouldBe 3
+    }
+
+
+    @Test
     fun `get post's author last name`() {
         // Given
         val postId = postRepository.save(post).id!!
