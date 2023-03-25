@@ -1,4 +1,4 @@
-package com.pientaa.hibernatedemo
+package com.pientaa.hibernatedemo.author
 
 import jakarta.persistence.*
 
