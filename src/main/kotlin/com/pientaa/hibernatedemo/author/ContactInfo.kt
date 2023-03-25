@@ -1,13 +1,10 @@
 package com.pientaa.hibernatedemo.author
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Embeddable
 
-@Entity
-@Table(name = "contact_info")
-class ContactInfoEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+@Embeddable
+data class ContactInfo(
     @Column(nullable = false)
     var address: String,
     @Column(nullable = false)
