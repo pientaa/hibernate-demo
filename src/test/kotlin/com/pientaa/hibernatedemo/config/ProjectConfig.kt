@@ -36,11 +36,6 @@ object DatabaseCleanUpListener : TestListener {
         clearAllTables(connection)
         super.afterTest(testCase, result)
     }
-
-    override suspend fun beforeTest(testCase: TestCase) {
-        super.beforeTest(testCase)
-        runImportSql(connection)
-    }
 }
 
 private fun clearAllTables(connection: Connection) {

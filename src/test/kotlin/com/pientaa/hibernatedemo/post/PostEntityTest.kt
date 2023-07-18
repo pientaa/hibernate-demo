@@ -2,9 +2,11 @@ package com.pientaa.hibernatedemo.post
 
 import com.pientaa.hibernatedemo.author.Author
 import com.pientaa.hibernatedemo.author.AuthorRepository
+import com.pientaa.hibernatedemo.author.ContactInfo
 import com.pientaa.hibernatedemo.util.TransactionProvider
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.test.TestCase
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.hibernate.LazyInitializationException
@@ -169,11 +171,25 @@ class PostEntityTest(
     private val post: Post
         get() = Post(title = "Title", content = "Content", author = author, comments = mutableSetOf())
     private val author: Author
-        get() = authorRepository.findByIdOrNull(1)!!
+        get() = authorRepository.findAll().last()
 
     private inline fun <reified T> transaction(readOnly: Boolean = false, noinline block: () -> T) =
         when (readOnly) {
             true -> transactionProvider.readOnlyTransaction(block)
             false -> transactionProvider.transaction(block)
         }
+
+    override suspend fun beforeTest(testCase: TestCase) {
+        super.beforeTest(testCase)
+        authorRepository.save(
+            Author(
+                firstName = "Jan", lastName = "Nowak",
+                contactInfo = ContactInfo(
+                    address = "ul. Test 1/1 Poznań 61-737",
+                    email = "jan.nowak@test.pl",
+                    phone = "+48 123 456 789"
+                )
+            )
+        )
+    }
 }
