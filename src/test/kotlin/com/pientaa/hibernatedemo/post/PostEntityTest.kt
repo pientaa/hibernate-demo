@@ -1,6 +1,6 @@
 package com.pientaa.hibernatedemo.post
 
-import com.pientaa.hibernatedemo.author.AuthorEntity
+import com.pientaa.hibernatedemo.author.Author
 import com.pientaa.hibernatedemo.author.AuthorRepository
 import com.pientaa.hibernatedemo.util.TransactionProvider
 import io.kotest.assertions.throwables.shouldThrow
@@ -166,9 +166,9 @@ class PostEntityTest(
         postRepository.findByIdOrNull(postId) shouldBe null
     }
 
-    private val post: PostEntity
-        get() = PostEntity(title = "Title", content = "Content", author = author, comments = mutableSetOf())
-    private val author: AuthorEntity
+    private val post: Post
+        get() = Post(title = "Title", content = "Content", author = author, comments = mutableSetOf())
+    private val author: Author
         get() = authorRepository.findByIdOrNull(1)!!
 
     private inline fun <reified T> transaction(readOnly: Boolean = false, noinline block: () -> T) =

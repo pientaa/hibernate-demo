@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PostRepository : JpaRepository<PostEntity, Long> {
+interface PostRepository : JpaRepository<Post, Long> {
     @Query(
         """
         select new com.pientaa.hibernatedemo.post.PostCommentDto(p.id, p.title, pc.id, pc.content) 
-        from PostEntity p left join PostCommentEntity pc on p.id = pc.post.id
+        from Post p left join PostComment pc on p.id = pc.post.id
         """
     )
     fun postCommentDto(id: Long): List<PostCommentDto>

@@ -67,8 +67,8 @@ class AuthorEntityTest(
         authorRepository.findByIdOrNull(authorId) shouldBe null
     }
 
-    private val author: AuthorEntity
-        get() = AuthorEntity(firstName = "John", lastName = "Smith", contactInfo = contactInfo)
+    private val author: Author
+        get() = Author(firstName = "John", lastName = "Smith", contactInfo = contactInfo)
 
     private val contactInfo: ContactInfo
         get() = ContactInfo(address = "Test 1/1 12-345 Poznań", email = "test@test.pl", phone = "+48 512 345 678")

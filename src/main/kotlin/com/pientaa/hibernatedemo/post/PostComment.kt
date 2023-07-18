@@ -1,11 +1,11 @@
 package com.pientaa.hibernatedemo.post
 
-import com.pientaa.hibernatedemo.author.AuthorEntity
+import com.pientaa.hibernatedemo.author.Author
 import jakarta.persistence.*
 
 @Entity
 @Table(name = "post_comment")
-class PostCommentEntity(
+class PostComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
@@ -13,8 +13,8 @@ class PostCommentEntity(
     var content: String,
 
     @ManyToOne(optional = false)
-    val author: AuthorEntity,
+    val author: Author,
 
     @ManyToOne(optional = false)
-    val post: PostEntity
+    val post: Post
 )

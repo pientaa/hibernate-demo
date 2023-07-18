@@ -1,11 +1,11 @@
 package com.pientaa.hibernatedemo.post
 
-import com.pientaa.hibernatedemo.author.AuthorEntity
+import com.pientaa.hibernatedemo.author.Author
 import jakarta.persistence.*
 
 @Entity
 @Table(name = "post")
-class PostEntity(
+class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
@@ -15,14 +15,14 @@ class PostEntity(
     var content: String,
 
     @OneToMany(mappedBy = "post", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val comments: MutableSet<PostCommentEntity>,
+    val comments: MutableSet<PostComment> = mutableSetOf(),
 
     @ManyToOne(optional = false)
-    val author: AuthorEntity,
+    val author: Author,
 ) {
-    fun addComment(content: String, author: AuthorEntity) {
+    fun addComment(content: String, author: Author) {
         comments.add(
-            PostCommentEntity(content = content, author = author, post = this)
+            PostComment(content = content, author = author, post = this)
         )
     }
 
