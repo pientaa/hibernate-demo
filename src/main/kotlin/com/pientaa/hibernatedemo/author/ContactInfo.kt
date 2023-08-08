@@ -6,9 +6,9 @@ import jakarta.persistence.Embeddable
 @Embeddable
 data class ContactInfo(
     @Column(nullable = false)
-    var address: String,
+    val address: String,
     @Column(nullable = false)
-    var phone: String,
+    val phone: String,
     @Column(nullable = false)
-    var email: String,
+    val email: String,
 )

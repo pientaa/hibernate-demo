@@ -4,7 +4,6 @@ import com.pientaa.hibernatedemo.author.Author
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "post")
 class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

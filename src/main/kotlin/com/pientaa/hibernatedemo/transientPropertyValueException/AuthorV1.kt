@@ -1,17 +1,12 @@
-package com.pientaa.hibernatedemo.author
+package com.pientaa.hibernatedemo.transientPropertyValueException
 
 import jakarta.persistence.*
 
 @Entity
-class Author(
+class AuthorV1(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    @Column(nullable = false)
     var firstName: String,
-    @Column(nullable = false)
     var lastName: String,
-
-    @Embedded
-    var contactInfo: ContactInfo
 )
