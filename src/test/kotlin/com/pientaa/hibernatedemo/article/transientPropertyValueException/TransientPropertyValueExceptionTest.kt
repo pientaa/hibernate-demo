@@ -1,17 +1,24 @@
 package com.pientaa.hibernatedemo.article.transientPropertyValueException
 
 import com.pientaa.hibernatedemo.transientPropertyValueException.AuthorV1
-import com.pientaa.hibernatedemo.transientPropertyValueException.PostV1
 import com.pientaa.hibernatedemo.transientPropertyValueException.PostRepositoryV1
+import com.pientaa.hibernatedemo.transientPropertyValueException.PostV1
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ActiveProfiles
 
+@Ignored(
+    """
+   This test should fail with TransientPropertyValueException.
+   Run TransientPropertyValueExceptionFixedTest instead.
+"""
+)
 @SpringBootTest
 @ActiveProfiles("test")
-class Test(
+class TransientPropertyValueExceptionTest(
     private val postRepository: PostRepositoryV1
 ) : BehaviorSpec({
 
