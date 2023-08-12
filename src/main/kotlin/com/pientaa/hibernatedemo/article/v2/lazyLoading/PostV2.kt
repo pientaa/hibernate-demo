@@ -1,4 +1,4 @@
-package com.pientaa.hibernatedemo.article.lazyLoading
+package com.pientaa.hibernatedemo.article.v2.lazyLoading
 
 import jakarta.persistence.*
 

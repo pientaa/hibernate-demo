@@ -1,7 +1,7 @@
-package com.pientaa.hibernatedemo.article.lazyLoading
+package com.pientaa.hibernatedemo.article.v2.lazyLoading
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PostRepositoryV2 : JpaRepository<PostV2, Long>
+interface AuthorRepositoryV2 : JpaRepository<AuthorV2, Long>

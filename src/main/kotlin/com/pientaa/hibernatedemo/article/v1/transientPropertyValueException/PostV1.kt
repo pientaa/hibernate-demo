@@ -1,4 +1,4 @@
-package com.pientaa.hibernatedemo.article.transientPropertyValueException
+package com.pientaa.hibernatedemo.article.v1.transientPropertyValueException
 
 import jakarta.persistence.*
 
