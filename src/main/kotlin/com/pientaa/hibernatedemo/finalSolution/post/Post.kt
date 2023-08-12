@@ -1,6 +1,6 @@
-package com.pientaa.hibernatedemo.post
+package com.pientaa.hibernatedemo.finalSolution.post
 
-import com.pientaa.hibernatedemo.author.Author
+import com.pientaa.hibernatedemo.finalSolution.author.Author
 import jakarta.persistence.*
 
 @Entity

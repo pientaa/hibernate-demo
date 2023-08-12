@@ -1,4 +1,4 @@
-package com.pientaa.hibernatedemo.author
+package com.pientaa.hibernatedemo.finalSolution.author
 
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable

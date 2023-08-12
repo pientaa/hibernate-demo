@@ -1,8 +1,10 @@
 package com.pientaa.hibernatedemo.post
 
-import com.pientaa.hibernatedemo.author.Author
-import com.pientaa.hibernatedemo.author.AuthorRepository
-import com.pientaa.hibernatedemo.author.ContactInfo
+import com.pientaa.hibernatedemo.finalSolution.author.Author
+import com.pientaa.hibernatedemo.finalSolution.author.AuthorRepository
+import com.pientaa.hibernatedemo.finalSolution.author.ContactInfo
+import com.pientaa.hibernatedemo.finalSolution.post.Post
+import com.pientaa.hibernatedemo.finalSolution.post.PostRepository
 import com.pientaa.hibernatedemo.util.TransactionProvider
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec

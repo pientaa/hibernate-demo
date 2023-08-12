@@ -1,5 +1,8 @@
 package com.pientaa.hibernatedemo.author
 
+import com.pientaa.hibernatedemo.finalSolution.author.Author
+import com.pientaa.hibernatedemo.finalSolution.author.AuthorRepository
+import com.pientaa.hibernatedemo.finalSolution.author.ContactInfo
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
