@@ -1,8 +1,5 @@
 package com.pientaa.hibernatedemo.article.transientPropertyValueException
 
-import com.pientaa.hibernatedemo.transientPropertyValueException.AuthorV1
-import com.pientaa.hibernatedemo.transientPropertyValueException.PostRepositoryV1
-import com.pientaa.hibernatedemo.transientPropertyValueException.PostV1
 import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldNotBe

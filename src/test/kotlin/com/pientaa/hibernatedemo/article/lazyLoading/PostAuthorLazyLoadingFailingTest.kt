@@ -1,9 +1,5 @@
 package com.pientaa.hibernatedemo.article.lazyLoading
 
-import com.pientaa.hibernatedemo.lazyLoading.AuthorRepositoryV2
-import com.pientaa.hibernatedemo.lazyLoading.AuthorV2
-import com.pientaa.hibernatedemo.lazyLoading.PostRepositoryV2
-import com.pientaa.hibernatedemo.lazyLoading.PostV2
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import org.springframework.boot.test.context.SpringBootTest
