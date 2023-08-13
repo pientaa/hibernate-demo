@@ -1,9 +1,5 @@
 package com.pientaa.hibernatedemo.article.v2.lazyLoading
 
-import com.pientaa.hibernatedemo.article.v2.lazyLoading.AuthorRepositoryV2
-import com.pientaa.hibernatedemo.article.v2.lazyLoading.AuthorV2
-import com.pientaa.hibernatedemo.article.v2.lazyLoading.PostRepositoryV2
-import com.pientaa.hibernatedemo.article.v2.lazyLoading.PostV2
 import com.pientaa.hibernatedemo.util.TransactionProvider
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -19,14 +15,14 @@ class PostAuthorLazyLoadingTest(
     private val transactionProvider: TransactionProvider,
 ) : BehaviorSpec({
 
-    Given("Authors - Jan Nowak and John Smith") {
+    Given("Author - Jan Nowak") {
         val janNowak = AuthorV2(firstName = "Jan", lastName = "Nowak").let { authorRepository.save(it) }
 
         When("Jan Nowak creates a Post") {
             val postId = PostV2(title = "First Post", content = "Just hanging around", author = janNowak)
                 .let { postRepository.save(it) }.id
 
-            Then("Post should be created") {
+            Then("Fetching lazy loaded property inside transaction should not throw LazyInitializationException") {
                 transactionProvider.readOnlyTransaction {
                     postRepository.findByIdOrNull(postId)!!.author.firstName shouldBe "Jan"
                 }
